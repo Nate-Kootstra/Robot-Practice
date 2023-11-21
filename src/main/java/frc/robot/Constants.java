@@ -7,8 +7,6 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.SPI.Port;
-
 
 
 public final class Constants {
@@ -40,4 +38,26 @@ public final class Constants {
   public static final class Shuffleboard {
     public static final String  MAINTAB = "Debug";
   }
+
+  public static class Units {
+    public static class Metric {
+        public static final double MILIMETER = 0.1;
+        public static final double CENTIMETER = 1;
+        public static final double METER = 100;
+        public static final double KILOMETER = 100000;
+    }
+    
+    public static class Imperial {
+        public static final double INCH = 2.54;
+        public static final double FOOT = 30.48;
+        public static final double YARD = 91.44;
+        public static final double MILE = 160934.4;
+    }
+
+    public static class InternalMultipliers{
+      public static final double ENCODERMULTIPLER = 0;
+    }
+    
+  }
+
 }
