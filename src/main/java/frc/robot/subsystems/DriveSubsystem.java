@@ -48,10 +48,10 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void setBrake(boolean brake){
-    backLeftWheel.setNeutralMode(Constants.Motors.Wheels.NEUTRALMODES[brake ? 1 : 0]);
-    backRightWheel.setNeutralMode(Constants.Motors.Wheels.NEUTRALMODES[brake ? 1 : 0]);
-    frontLeftWheel.setNeutralMode(Constants.Motors.Wheels.NEUTRALMODES[brake ? 1 : 0]);
-    frontRightWheel.setNeutralMode(Constants.Motors.Wheels.NEUTRALMODES[brake ? 1 : 0]);
+    backLeftWheel.setNeutralMode(Constants.Motors.NEUTRALMODES[brake ? 1 : 0]);
+    backRightWheel.setNeutralMode(Constants.Motors.NEUTRALMODES[brake ? 1 : 0]);
+    frontLeftWheel.setNeutralMode(Constants.Motors.NEUTRALMODES[brake ? 1 : 0]);
+    frontRightWheel.setNeutralMode(Constants.Motors.NEUTRALMODES[brake ? 1 : 0]);
   }
 
   public void setInverted(boolean backLeft, boolean backRight, boolean frontLeft, boolean frontRight){
