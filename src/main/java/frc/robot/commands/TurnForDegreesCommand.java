@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class DriveForDistanceCommand extends CommandBase {
+public class TurnForDegreesCommand extends CommandBase {
 
   private DriveSubsystem driveSubsystem;
 
@@ -19,13 +19,13 @@ public class DriveForDistanceCommand extends CommandBase {
   
   private double precision = 2000;
 
-  //Drives for a certain amount of a certain unit. Does not drive TO a position, instead driving that much further from the current one.
-  public DriveForDistanceCommand(double unit, double distance, double speed, DriveSubsystem driveSubsystem) {
+  //Turns a certain amount of degrees.
+  public TurnForDegreesCommand(double degrees, double speed, DriveSubsystem driveSubsystem) {
 
     this.driveSubsystem = driveSubsystem;
 
     this.speed = Math.abs(speed);
-    targetDistance = unit * distance * Constants.Units.InternalMultipliers.ENCODERMULTIPLER + driveSubsystem.getWheelEncoder(Constants.Motors.Wheels.IDs.FRONTLEFT).getAsDouble();
+    targetDistance = Constants.Units.degreesToEncoder(degrees) + driveSubsystem.getWheelEncoder(Constants.Motors.Wheels.IDs.FRONTLEFT).getAsDouble();
 
     addRequirements(driveSubsystem);
 
@@ -40,7 +40,7 @@ public class DriveForDistanceCommand extends CommandBase {
     remainingDistance = targetDistance - driveSubsystem.getWheelEncoder(Constants.Motors.Wheels.IDs.FRONTLEFT).getAsDouble();
     direction = (remainingDistance > 0 ? 1 : -1);
 
-    driveSubsystem.arcadeDrive(Math.min(speed, 1) * direction, 0);
+    driveSubsystem.arcadeDrive(0, Math.min(speed, 1) * direction);
 
   }
 

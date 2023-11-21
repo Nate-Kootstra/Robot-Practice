@@ -59,6 +59,10 @@ public final class Constants {
     public static class InternalMultipliers{
       public static final double ENCODERMULTIPLER = 1;
     }
+
+    public static double degreesToEncoder(double degrees){
+      return degrees * 1;
+    }
     
   }
 
