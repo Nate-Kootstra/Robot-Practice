@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -91,6 +90,17 @@ public class DriveSubsystem extends SubsystemBase {
 
   public BooleanSupplier getSafetyEnabled(){
     return () -> (backLeftWheel.isSafetyEnabled());
+  }
+
+  public boolean isWheelBroken(){
+    return !(backLeftWheel.isAlive() && backRightWheel.isAlive() && frontLeftWheel.isAlive() && frontRightWheel.isAlive());
+  }
+
+  public void disableAllWheels(){
+    backLeftWheel.disable();
+    backRightWheel.disable();
+    frontLeftWheel.disable();
+    frontRightWheel.disable();
   }
 
   public void arcadeDrive(double speed, double rotation){
