@@ -7,7 +7,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -22,10 +24,10 @@ public class DriveSubsystem extends SubsystemBase {
   private MotorControllerGroup rightWheels = new MotorControllerGroup(frontRightWheel, backRightWheel);
   private DifferentialDrive wheels = new DifferentialDrive(leftWheels, rightWheels);
 
+  private Gyro gyro = new ADXRS450_Gyro();
 
 
-
-
+  
   public DriveSubsystem() {
 
     setInverted(false, false, false, false);
@@ -52,6 +54,13 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
 
+  public void resetGyro(){
+    gyro.reset();
+  }
+
+  public double getGyro(){
+    return gyro.getAngle();
+  }
 
   public void arcadeDrive(double speed, double rotation){
     wheels.arcadeDrive(speed, rotation);
