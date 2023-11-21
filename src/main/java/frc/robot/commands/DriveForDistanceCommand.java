@@ -24,7 +24,9 @@ public class DriveForDistanceCommand extends CommandBase {
 
     this.driveSubsystem = driveSubsystem;
 
-    this.speed = Math.abs(speed);
+    if(speed < 0)
+    throw new IllegalArgumentException("Speed cannot be negative. If you wish to drive backwards, distance should be negative.");
+    this.speed = speed;
     targetDistance = unit * distance * Constants.Units.InternalMultipliers.ENCODERMULTIPLER + driveSubsystem.getWheelEncoder(Constants.Motors.Wheels.IDs.FRONTLEFT).getAsDouble();
 
     addRequirements(driveSubsystem);
