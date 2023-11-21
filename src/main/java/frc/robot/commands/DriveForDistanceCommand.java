@@ -19,12 +19,13 @@ public class DriveForDistanceCommand extends CommandBase {
   
   private double precision = 2000;
 
+  //Drives for a certain amount of a certain unit. Does not drive TO a position, instead driving that much further from the current one.
   public DriveForDistanceCommand(double unit, double distance, double speed, DriveSubsystem driveSubsystem) {
 
     this.driveSubsystem = driveSubsystem;
 
     this.speed = speed;
-    targetDistance = unit * distance * Constants.Units.InternalMultipliers.ENCODERMULTIPLER;
+    targetDistance = unit * distance * Constants.Units.InternalMultipliers.ENCODERMULTIPLER + driveSubsystem.getWheelEncoder(Constants.Motors.Wheels.IDs.FRONTLEFT).getAsDouble();
 
     addRequirements(driveSubsystem);
 

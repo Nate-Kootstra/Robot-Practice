@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 
 public final class Constants {
+  //Constants for the various motors on the robot. Includes things like IDs and arrays with references to all of the motors.
   public static final class Motors {
     public static final class Wheels {
       public static final class IDs {
@@ -36,9 +37,10 @@ public final class Constants {
   }
 
   public static final class Shuffleboard {
-    public static final String  MAINTAB = "Debug";
+    public static final String MAINTAB = "Debug";
   }
 
+  //Used for converting from any given unit to centimeters, and then encoder units.
   public static class Units {
     public static class Metric {
         public static final double MILIMETER = 0.1;
@@ -55,7 +57,7 @@ public final class Constants {
     }
 
     public static class InternalMultipliers{
-      public static final double ENCODERMULTIPLER = 0;
+      public static final double ENCODERMULTIPLER = 1;
     }
     
   }

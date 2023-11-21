@@ -12,14 +12,14 @@ public class DisableAllWheelsCommand extends CommandBase {
   private DriveSubsystem driveSubsystem;
   
 
-
+  //Disables all wheels on the robot. Made as an emergency response for if a wheel fails.
   public DisableAllWheelsCommand(DriveSubsystem subsystem) {
     driveSubsystem = subsystem;
 
     addRequirements(subsystem);
   }
 
-  
+
 
   @Override
   public void initialize() {
