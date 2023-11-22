@@ -42,7 +42,7 @@ public class RobotContainer {
     new Trigger(() -> true).whileTrue(
       new DriveCommand(driverController.getLeftY(), driverController.getRightX(), driveSubsystem));
     
-    // Roll the roller when the "b" button on the
+    // Roll the roller when the "b" button on the operator controller is pressed.
     operatorController.b().onTrue(
       new RollForTimeCommand(5, 0.4, armSubsystem));
 
