@@ -60,7 +60,11 @@ public final class Constants {
       public static final double ENCODERMULTIPLER = 1;
     }
 
-    public static double degreesToEncoder(double degrees){
+    public static double wheelDegreesToEncoder(double degrees){
+      return degrees * 1;
+    }
+
+    public static double armDegreesToEncoder(double degrees){
       return degrees * 1;
     }
     

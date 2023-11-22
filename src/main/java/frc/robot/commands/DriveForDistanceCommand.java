@@ -26,6 +26,8 @@ public class DriveForDistanceCommand extends CommandBase {
 
     this.driveSubsystem = driveSubsystem;
 
+    if(Math.abs(speed) > 1)
+      throw new IllegalArgumentException("Absolute speed cannot exceed 1.");
     if(speed < 0)
     throw new IllegalArgumentException("Speed cannot be negative. If you wish to drive backwards, distance should be negative.");
     this.speed = speed;

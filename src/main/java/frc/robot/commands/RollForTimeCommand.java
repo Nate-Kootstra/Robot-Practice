@@ -24,6 +24,8 @@ public class RollForTimeCommand extends CommandBase {
 
     this.armSubsystem = armSubsystem;
 
+    if(Math.abs(speed) > 1)
+      throw new IllegalArgumentException("Absolute speed cannot exceed 1.");
     this.speed = speed;
     this.seconds = seconds;
     

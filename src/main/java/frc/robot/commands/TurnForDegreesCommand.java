@@ -27,10 +27,12 @@ public class TurnForDegreesCommand extends CommandBase {
 
     this.driveSubsystem = driveSubsystem;
 
+    if(Math.abs(speed) > 1)
+      throw new IllegalArgumentException("Absolute speed cannot exceed 1.");
     if(speed < 0)
       throw new IllegalArgumentException("Speed cannot be negative. If you wish to turn the other way, degrees should be negative.");
     this.speed = speed;
-    targetDistance = Constants.Units.degreesToEncoder(degrees) + driveSubsystem.getWheelEncoder(Constants.Motors.Wheels.IDs.FRONTLEFT).getAsDouble();
+    targetDistance = Constants.Units.wheelDegreesToEncoder(degrees) + driveSubsystem.getWheelEncoder(Constants.Motors.Wheels.IDs.FRONTLEFT).getAsDouble();
 
     setShuffleboardOutput(false, true, false, true);
     addRequirements(driveSubsystem);
