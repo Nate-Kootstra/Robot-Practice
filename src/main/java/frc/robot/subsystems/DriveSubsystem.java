@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -40,7 +41,7 @@ public class DriveSubsystem extends SubsystemBase {
     setShuffleboardOutput(true, true, false, false, true, false);
 
   }
-
+  
 
 
   public void setSafety(boolean safe){

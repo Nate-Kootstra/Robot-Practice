@@ -36,6 +36,13 @@ public final class Constants {
 
   }
 
+  public static final class Controllers {
+    public static final class IDs {
+      public static final int driver = 0;
+      public static final int operator = 1;
+    }
+  }
+
   public static final class Shuffleboard {
     public static final String MAINTAB = "Debug";
   }
