@@ -4,18 +4,16 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.Commands;
 
 public final class Autos {
 
 
-  public static CommandBase exampleAuto(DriveSubsystem subsystem) {
-    return Commands.sequence(new DriveForDistanceCommand(Constants.Units.Imperial.INCH, 2, 0.4, subsystem));
+  public static CommandBase mainAuto(DriveSubsystem driveSubsystem, ArmSubsystem armSubsystem) {
+    return new TestAuto1(driveSubsystem, armSubsystem);
   }
-
   private Autos() {
     throw new UnsupportedOperationException("This is a utility class!");
   }

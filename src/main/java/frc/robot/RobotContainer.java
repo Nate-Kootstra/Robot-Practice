@@ -4,18 +4,29 @@
 
 package frc.robot;
 
+import frc.robot.commands.Autos;
 import frc.robot.commands.DisableAllWheelsCommand;
+import frc.robot.commands.DriveCommand;
+import frc.robot.commands.RollForTimeCommand;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 
+import java.util.function.BooleanSupplier;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
 
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private final ArmSubsystem armSubsystem = new ArmSubsystem();
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  // private final CommandXboxController m_driverController =
-  //     new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandXboxController driverController =
+    new CommandXboxController(Constants.Controllers.IDs.driver);
+  private final CommandXboxController operatorController =
+    new CommandXboxController(Constants.Controllers.IDs.operator);
 
 
   public RobotContainer() {
@@ -24,15 +35,20 @@ public class RobotContainer {
 
   private void configureBindings() {
     // Disables all wheels if one wheel is not working.
-    new Trigger(driveSubsystem::isWheelBroken)
-        .onTrue(new DisableAllWheelsCommand(driveSubsystem));
+    new Trigger(driveSubsystem::isWheelBroken).onTrue(
+      new DisableAllWheelsCommand(driveSubsystem));
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    // Drive the robot based on the driverController inputs.
+    new Trigger(() -> true).whileTrue(
+      new DriveCommand(driverController.getLeftY(), driverController.getRightX(), driveSubsystem));
+    
+    // Roll the roller when the "b" button on the
+    operatorController.b().onTrue(
+      new RollForTimeCommand(5, 0.4, armSubsystem));
+
   }
 
-  // public Command getAutonomousCommand() {
-  //   return Autos.exampleAuto(m_exampleSubsystem);
-  // }
+  public Command getAutonomousCommand() {
+    return Autos.mainAuto(driveSubsystem, armSubsystem);
+  }
 }
