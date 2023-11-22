@@ -4,6 +4,9 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
@@ -13,7 +16,6 @@ public class DriveForDistanceCommand extends CommandBase {
   private DriveSubsystem driveSubsystem;
 
   private double targetDistance;
-  private double remainingDistance;
   private double speed;
   private double direction;
   
@@ -29,8 +31,24 @@ public class DriveForDistanceCommand extends CommandBase {
     this.speed = speed;
     targetDistance = unit * distance * Constants.Units.InternalMultipliers.ENCODERMULTIPLER + driveSubsystem.getWheelEncoder(Constants.Motors.Wheels.IDs.FRONTLEFT).getAsDouble();
 
+    setShuffleboardOutput(false, true, false, true);
     addRequirements(driveSubsystem);
 
+  }
+
+  public void setShuffleboardOutput(boolean targetDistance, boolean remainingDistance, boolean speed, boolean direction){
+    if(targetDistance)
+      Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addDouble("Drive Command Target Distance", () -> this.targetDistance);
+    if(remainingDistance)
+      Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addDouble("Drive Command Remaining Distance", getRemainingDistance());
+    if(speed)
+      Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addDouble("Drive Command Speed", () -> this.speed);
+    if(direction)
+      Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addDouble("Drive Command Direction", () -> this.direction);
+  }
+
+  public DoubleSupplier getRemainingDistance(){
+    return () -> targetDistance - driveSubsystem.getWheelEncoder(Constants.Motors.Wheels.IDs.FRONTLEFT).getAsDouble();
   }
 
   @Override
@@ -38,9 +56,7 @@ public class DriveForDistanceCommand extends CommandBase {
 
   @Override
   public void execute() {
-
-    remainingDistance = targetDistance - driveSubsystem.getWheelEncoder(Constants.Motors.Wheels.IDs.FRONTLEFT).getAsDouble();
-    direction = (remainingDistance > 0 ? 1 : -1);
+    direction = (getRemainingDistance().getAsDouble() > 0 ? 1 : -1);
 
     driveSubsystem.arcadeDrive(Math.min(speed, 1) * direction, 0);
 
@@ -53,6 +69,6 @@ public class DriveForDistanceCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return (Math.abs(remainingDistance) < precision);
+    return (Math.abs(getRemainingDistance().getAsDouble()) < precision);
   }
 }

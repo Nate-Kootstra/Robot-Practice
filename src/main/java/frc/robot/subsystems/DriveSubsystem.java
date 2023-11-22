@@ -65,7 +65,7 @@ public class DriveSubsystem extends SubsystemBase {
     if(gyro)
       Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addDouble("Gyro", getGyro());
     if(safetyEnabled)
-      Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addBoolean("Safety Enabled", getSafetyEnabled());
+      Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addBoolean("Wheel Safety Enabled", getSafetyEnabled());
     if(backLeftWheel)
       Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addDouble("Back Left Wheel", getWheelEncoder(Constants.Motors.Wheels.IDs.BACKLEFT));
     if(backRightWheel)

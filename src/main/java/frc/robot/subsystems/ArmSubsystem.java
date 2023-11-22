@@ -49,7 +49,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   public void setShuffleboardOutput(boolean safetyEnabled, boolean base, boolean roller){
     if(safetyEnabled)
-      Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addBoolean("Safety Enabled", getSafetyEnabled());
+      Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addBoolean("Arm Safety Enabled", getSafetyEnabled());
     if(base)
       Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addDouble("Arm Base", getArmEncoder(Constants.Motors.Arm.IDs.BASE));
     if(roller)

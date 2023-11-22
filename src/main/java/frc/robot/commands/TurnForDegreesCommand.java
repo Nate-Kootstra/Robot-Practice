@@ -4,6 +4,9 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
@@ -29,8 +32,24 @@ public class TurnForDegreesCommand extends CommandBase {
     this.speed = speed;
     targetDistance = Constants.Units.degreesToEncoder(degrees) + driveSubsystem.getWheelEncoder(Constants.Motors.Wheels.IDs.FRONTLEFT).getAsDouble();
 
+    setShuffleboardOutput(false, true, false, true);
     addRequirements(driveSubsystem);
 
+  }
+
+  public void setShuffleboardOutput(boolean targetDistance, boolean remainingDistance, boolean speed, boolean direction){
+    if(targetDistance)
+      Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addDouble("Turn Command Target Distance", () -> this.targetDistance);
+    if(remainingDistance)
+      Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addDouble("Turn Command Remaining Distance", getRemainingDistance());
+    if(speed)
+      Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addDouble("Turn Command Speed", () -> this.speed);
+    if(direction)
+      Shuffleboard.getTab(Constants.Shuffleboard.MAINTAB).addDouble("Turn Command Direction", () -> this.direction);
+  }
+
+  public DoubleSupplier getRemainingDistance(){
+    return () -> targetDistance - driveSubsystem.getWheelEncoder(Constants.Motors.Wheels.IDs.FRONTLEFT).getAsDouble();
   }
 
   @Override
